@@ -1,4 +1,4 @@
-function buildRoundedRectPath(w, h, r, withTLBR, dentSize) {
+function buildRoundedRectPath(w, h, r, withTLBR, dentSize, conersABCD = [false, true, false, false]) {
   if (r <= 0) return `M0 0 H ${w} V ${h} H 0 Z`;
   r = Math.min(r, w/2, h/2);
   const k = 0.5522847498 * r;
@@ -19,7 +19,11 @@ function buildRoundedRectPath(w, h, r, withTLBR, dentSize) {
   const dentDepth = r * dentSize;
 
   const d = [
-    `M ${r} ${y0}`,
+    conersABCD[0] ? [
+      `M ${r} ${y0}`
+    ] : [ 
+      `M ${r} ${y0}`
+    ],
 
     // top
     withTLBR[0] ? [
@@ -27,14 +31,30 @@ function buildRoundedRectPath(w, h, r, withTLBR, dentSize) {
       `C ${xM - dent/2 - r + k} ${y0} ${xM - dent/2} ${dentDepth*0.5 - k} ${xM - dent/2} ${dentDepth*0.5}`,
       `C ${xM - dent/2} ${dentDepth*0.5 + k} ${xM - dent/2 + r - k} ${dentDepth} ${xM - dent/2 + r} ${dentDepth}`,
       `L ${xM} ${dentDepth}`,
-      `L ${xM + dent/2 - r} ${dentDepth}`,
-      `C ${xM + dent/2 - r + k} ${dentDepth} ${xM + dent/2} ${dentDepth*0.5 + k} ${xM + dent/2} ${dentDepth*0.5}`,
-      `C ${xM + dent/2} ${dentDepth*0.5 - k} ${xM + dent/2 + r - k} ${y0} ${xM + dent/2 + r} ${y0}`
-    ] : [],
 
-    `L ${x1} ${y1}`,
-    `C ${x1 + k} ${y1} ${x2} ${y2 - k} ${x2} ${y2}`,
+      conersABCD[1] ? [
+        `L ${w - dentDepth + r} ${dentDepth}`,
+        `C ${w - dentDepth + r} ${dentDepth} ${w} ${dentDepth} ${w} ${dentDepth + r}`,
+      ] : [ 
+        `L ${xM + dent/2 - r} ${dentDepth}`,
+        `C ${xM + dent/2 - r + k} ${dentDepth} ${xM + dent/2} ${dentDepth*0.5 + k} ${xM + dent/2} ${dentDepth*0.5}`,
+        `C ${xM + dent/2} ${dentDepth*0.5 - k} ${xM + dent/2 + r - k} ${y0} ${xM + dent/2 + r} ${y0}`,
 
+        `L ${x1} ${y1}`,
+        `C ${x1 + k} ${y1} ${x2} ${y2 - k} ${x2} ${y2}`,
+      ],
+    ] : [
+      conersABCD[1] ? [
+        `L ${w - dentDepth - r} ${y1}`,
+        `C ${w - dentDepth} ${y1} ${w - dentDepth} ${r} ${w - dentDepth} ${dentDepth - r}`,
+        `C ${w - dentDepth} ${dentDepth - r + k} ${w - dentDepth + r - k} ${dentDepth} ${w - dentDepth + r} ${dentDepth}`,
+        `C ${w - dentDepth + r} ${dentDepth} ${w} ${dentDepth} ${w} ${dentDepth + r}`,
+      ] : [ 
+        `L ${x1} ${y1}`,
+        `C ${x1 + k} ${y1} ${x2} ${y2 - k} ${x2} ${y2}`,
+      ],
+    ],
+    
     // right
     withTLBR[1] ? [
       `L ${x2} ${yM - dent/2 - r}`,

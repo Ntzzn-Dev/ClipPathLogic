@@ -9,7 +9,7 @@ html,body{
 
 #roundedDiv{    
     width: 30em;
-    height: 19em;
+    height: 30em;
     background: linear-gradient(135deg,#6ee7b7 0%,#3b82f6 100%);
     display:flex;
     align-items:center;
