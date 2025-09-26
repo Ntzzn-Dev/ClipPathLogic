@@ -1,6 +1,6 @@
 # ClipPathLogic
 
-**Projeto:** ClipPathLogic
+**Projeto:** ClipPathLogic  
 **Autor:** Jhonatan | Nathan  
 **GitHub:** [https://github.com/Ntzzn-Dev](https://github.com/Ntzzn-Dev)  
 **Data:** 26/09/2025  
@@ -18,6 +18,7 @@ A ideia é explorar efeitos visuais criativos e responsivos sem depender de imag
 
 - Geração dinâmica de paths em SVG convertidos para `clip-path`.  
 - Borda arredondada em todos os cantos utilizando curvas Bézier.  
-- Possibilidade de adicionar `top` `right` `bottom` `left`.  
-- Efeitos visuais totalmente personalizáveis via JavaScript.  
+- Possibilidade de adicionar vãos em `top` `right` `bottom` `left`.  
+- Possibilidade de adicionar vãos em `TopRight` `BottomRight` `BottomLeft`.  
+- Efeitos visuais totalmente personalizáveis via switchs de controle em tempo real.  
 - Renderização em tempo real assim que a página é carregada.  
