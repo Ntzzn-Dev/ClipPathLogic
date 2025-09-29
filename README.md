@@ -22,3 +22,5 @@ A ideia é explorar efeitos visuais criativos e responsivos sem depender de imag
 - Possibilidade de adicionar vãos em `TopRight` `BottomRight` `BottomLeft`.  
 - Efeitos visuais totalmente personalizáveis via switchs de controle em tempo real.  
 - Renderização em tempo real assim que a página é carregada.  
+
+Veja o changelog completo em [CHANGELOG.md](CHANGELOG.md)

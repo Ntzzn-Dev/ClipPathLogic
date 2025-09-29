@@ -20,7 +20,7 @@ function buildRoundedRectPath(w, h, r, withTLBR, conersABCD, dentSize) {
 
   const d = [
     conersABCD[0] ? [
-      `M ${r} ${y0}`
+      `M ${dentDepth + r} ${y0}`
     ] : [ 
       `M ${r} ${y0}`
     ],
@@ -32,6 +32,7 @@ function buildRoundedRectPath(w, h, r, withTLBR, conersABCD, dentSize) {
       `C ${xM - dent/2} ${dentDepth*0.5 + k} ${xM - dent/2 + r - k} ${dentDepth} ${xM - dent/2 + r} ${dentDepth}`,
       `L ${xM} ${dentDepth}`,
 
+      // Top Right
       conersABCD[1] ? [
         `L ${w - dentDepth + r} ${dentDepth}`,
         `C ${w - dentDepth + r} ${dentDepth} ${w} ${dentDepth} ${w} ${dentDepth + r}`,
@@ -68,7 +69,7 @@ function buildRoundedRectPath(w, h, r, withTLBR, conersABCD, dentSize) {
       ] : [ 
         `L ${w - dentDepth} ${yM + dent/2 - r}`,
         `C ${w - dentDepth} ${yM + dent/2 - r + k} ${w - dentDepth*0.5 - k} ${yM + dent/2} ${w - dentDepth*0.5} ${yM + dent/2}`,
-        `C ${w - dentDepth*0.5 + k} ${yM + dent/2} ${x2} ${yM + dent/2 + r - k} ${x2} ${yM + dent/2 + r}`,
+        `C ${w - dentDepth * 0.5 + k} ${yM + dent/2} ${x2} ${yM + dent/2 + r - k} ${x2} ${yM + dent/2 + r}`,
         
         `L ${x3} ${y3}`,
         `C ${x3} ${y3 + k} ${x4 + k} ${y4} ${x4} ${y4}`,
@@ -121,13 +122,30 @@ function buildRoundedRectPath(w, h, r, withTLBR, conersABCD, dentSize) {
       `C ${x0} ${yM + dent/2 + r - k} ${dentDepth*0.5 - k} ${yM + dent/2} ${dentDepth*0.5} ${yM + dent/2}`,
       `C ${dentDepth*0.5 + k} ${yM + dent/2} ${dentDepth} ${yM + dent/2 - r + k} ${dentDepth} ${yM + dent/2 - r}`,
       `L ${dentDepth} ${yM}`,
-      `L ${dentDepth} ${yM - dent/2 + r}`,
-      `C ${dentDepth} ${yM - dent/2 + r - k} ${dentDepth*0.5 + k} ${yM - dent/2} ${dentDepth*0.5} ${yM - dent/2}`,
-      `C ${dentDepth*0.5 - k} ${yM - dent/2} ${x0} ${yM - dent/2 - r + k} ${x0} ${yM - dent/2 - r}`
-    ] : [],
+      conersABCD[0] ? [
+        `L ${dentDepth} ${dentDepth - r}`,
+        `L ${dentDepth} ${dentDepth - r}`,
+        `C ${dentDepth} ${r} ${dentDepth} ${y0} ${dentDepth + r} ${y0}`,
+      ] : [ 
+        `L ${dentDepth} ${yM - dent/2 + r}`,
+        `C ${dentDepth} ${yM - dent/2 + r - k} ${dentDepth*0.5 + k} ${yM - dent/2} ${dentDepth*0.5} ${yM - dent/2}`,
+        `C ${dentDepth*0.5 - k} ${yM - dent/2} ${x0} ${yM - dent/2 - r + k} ${x0} ${yM - dent/2 - r}`,
 
-    `L ${x7} ${y7}`,
-    `C ${x7} ${y7 - k} ${r - k} ${y0} ${r} ${y0}`,
+        `L ${x7} ${y7}`,
+        `C ${x7} ${y7 - k} ${r - k} ${y0} ${r} ${y0}`,
+      ],
+    ] : [
+      conersABCD[0] ? [
+        `L ${x0} ${dentDepth + r}`,
+        `C ${x0} ${dentDepth} ${x0 + r} ${dentDepth} ${x0 + r} ${dentDepth}`,
+        `C ${dentDepth} ${dentDepth} ${dentDepth} ${r} ${dentDepth} ${r}`,
+        `C ${dentDepth} ${y0} ${dentDepth + r} ${y0} ${dentDepth + r} ${y0}`,
+        ] : [ 
+        `L ${x7} ${y7}`,
+        `C ${x7} ${y7 - k} ${r - k} ${y0} ${r} ${y0}`,
+      ],
+    ],
+
     `Z`
   ].flat().join(' ');
 
