@@ -14,3 +14,8 @@ Todas as mudanças neste projeto serão documentadas aqui.
 
 ### version 1.3  
 - Clip Path de quina Top Left.  
+
+### version 1.4  
+- Organização de variaveis.  
+- Clip de complemento finalizada.  
+- Correção de Direções.  

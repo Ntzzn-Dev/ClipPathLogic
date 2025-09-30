@@ -38,4 +38,7 @@ html,body{
     justify-content: center;
     align-items: center;
     gap: 2em;
+    padding: 120px;
+    background-color: rgb(238, 238, 247);
+    border-radius: 12px;
 }
